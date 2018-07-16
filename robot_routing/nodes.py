@@ -106,7 +106,8 @@ class Wormhole(Node):
         Node.__init__(self, x, y)
         self.destination_point = Point(destination_x,destination_y)
 
-    def is_active(self, tick):
+    @staticmethod
+    def is_active(tick):
         return tick % WORMHOLE_FREQUENCY == 0
 
     def __str__(self):

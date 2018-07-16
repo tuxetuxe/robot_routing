@@ -29,7 +29,7 @@ class World:
         # Adding an "border" to the possible search space so the robot can potentially go around any node in the edge
         # and evade the lasers even if that takes a bit longer
         #
-        map_border =  1#max((max_x - min_x), (max_y - min_y))
+        map_border = max((max_x - min_x), (max_y - min_y))
 
         self.boundaries = BoundedBox(Point(min_x - map_border, min_y - map_border),
                                      Point(max_x + map_border, max_y + map_border))
@@ -53,7 +53,7 @@ class World:
                 node = self.get_node_at(point)
 
                 # if an wormhole is active in this tick the robot is not really there but on the other side
-                if isinstance(node, Wormhole) and node.is_active(tick):
+                if isinstance(node, Wormhole) and Wormhole.is_active(tick):
                     node = self.get_node_at(node.destination_point)
 
                 valid_neighbors.append(node)
