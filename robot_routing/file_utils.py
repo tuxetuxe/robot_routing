@@ -1,6 +1,7 @@
 import ast
 from world import World
 
+
 def read_world_from_problem_file(problem_file):
     file_contents = []
 
@@ -8,8 +9,6 @@ def read_world_from_problem_file(problem_file):
         file_contents = f.readlines()
 
     file_contents = [line.strip() for line in file_contents]
-
-    barriers, lasers, wormhole_pairs = [], [], []
 
     origin = ast.literal_eval(file_contents[0])
     destination = ast.literal_eval(file_contents[1])
@@ -29,4 +28,3 @@ def read_world_from_problem_file(problem_file):
 def write_solution_file(solution_file, solution_path):
     with open(solution_file, 'w') as f:
         f.write("%s" % solution_path)
-

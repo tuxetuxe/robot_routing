@@ -1,6 +1,6 @@
-import math_utils
 import heapq
 import math
+import math_utils
 
 
 class NodeQueue:
@@ -31,17 +31,12 @@ class RobotRouting:
             current_node = nodes_to_visit.pop()
             current_tick = current_node.visited_on_tick + 1
 
-            # print("\n\nCurrent Node: %s" % current_node)
-
             if current_node == destination:
                 break
 
             for neighbor_node in self.world.get_neighbors(current_node, current_tick):
                 cost = current_node.cost + self.world.movement_cost(neighbor_node, current_tick)
                 need_to_visit_neighbor = cost != math.inf and (neighbor_node.cost is None or cost < neighbor_node.cost)
-
-                # print("Neighbor Node: %s" % neighbor_node)
-                # print("\t cost: %s; will visit: %r" % ( str(cost), need_to_visit_neighbor) )
 
                 if need_to_visit_neighbor:
                     neighbor_node.cost = cost

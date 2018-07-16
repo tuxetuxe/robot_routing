@@ -9,6 +9,7 @@ CLOCKWISE_DIRECTIONS_MAP = { 'N': 'E',
 
 WORMHOLE_FREQUENCY = 3
 
+
 class Node:
     def __init__(self, x, y, cost = None, previous_node = None, visited_on_tick = None):
         self.point = Point(x,y)
@@ -30,7 +31,7 @@ class Node:
                                                                   str(self.visited_on_tick),
                                                                   str(self.cost),
                                                                   'None' if self.previous_node is None else str(self.previous_node.point)
-                                                                 )
+                                                                  )
 
 
 class Origin(Node):
@@ -50,7 +51,7 @@ class Destination(Node):
 
 
 class EmptyNode(Node):
-    def __init__(self, x, y, cost=None, previous_node=None):
+    def __init__(self, x, y, cost = None, previous_node = None):
         Node.__init__(self, x, y, cost, previous_node)
 
     def __str__(self):
@@ -88,16 +89,16 @@ class Laser(Node):
     def is_point_inside_beam(self, point, tick, barriers):
         direction = self.get_direction_on_tick(tick)
         if direction == 'N':
-            is_blocked_by_barrier = any([self.point.x == b.point.x and b.point.y > self.point.y and b.point.y < point.y for b in barriers])
+            is_blocked_by_barrier = any([self.point.x == b.point.x and self.point.y < b.point.y < point.y for b in barriers])
             return point.x == self.point.x and point.y >= self.point.y and not is_blocked_by_barrier
         if direction == 'E':
-            is_blocked_by_barrier = any([self.point.y == b.point.y and  b.point.x > self.point.x and b.point.x < point.x for b in barriers])
+            is_blocked_by_barrier = any([self.point.y == b.point.y and self.point.x < b.point.x < point.x for b in barriers])
             return point.y == self.point.y and point.x >= self.point.x  and not is_blocked_by_barrier
         if direction == 'S':
-            is_blocked_by_barrier = any([self.point.x == b.point.x and b.point.y < self.point.y and b.point.y > point.y for b in barriers])
+            is_blocked_by_barrier = any([self.point.x == b.point.x and self.point.y > b.point.y > point.y for b in barriers])
             return point.x == self.point.x and point.y <= self.point.y and not is_blocked_by_barrier
         if direction == 'W':
-            is_blocked_by_barrier = any([self.point.y == b.point.y and  b.point.x < self.point.x and b.point.x > point.x for b in barriers])
+            is_blocked_by_barrier = any([self.point.y == b.point.y and self.point.x > b.point.x > point.x for b in barriers])
             return point.y == self.point.y and point.x <= self.point.x and not is_blocked_by_barrier
 
     def __str__(self):

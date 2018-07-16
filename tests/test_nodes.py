@@ -65,6 +65,22 @@ def test_laser_direction_on_tick(lx, ly, initial_direction, tick, expected):
     (0, 0, 'N', 0, 2, 0, [Barrier(0, -1)], True),
     (0, 0, 'N', 0, 2, 0, [Barrier(1, 0)], True),
     (0, 0, 'N', 0, 3, 0, [Barrier(0, 1), Barrier(0, 2)], False),
+    (0, 0, 'E', 2, 0, 0, [Barrier(1, 0)], False),
+    (0, 0, 'E', 2, 0, 0, [Barrier(3, 0)], True),
+    (0, 0, 'E', 2, 0, 0, [Barrier(-1, 0)], True),
+    (0, 0, 'E', 2, 0, 0, [Barrier(0, 1)], True),
+    (0, 0, 'E', 3, 0, 0, [Barrier(1, 0), Barrier(2, 0)], False),
+    (0, 0, 'S', 0, -2, 0, [Barrier(0, -1)], False),
+    (0, 0, 'S', 0, -2, 0, [Barrier(0, -3)], True),
+    (0, 0, 'S', 0, -2, 0, [Barrier(0, 1)], True),
+    (0, 0, 'S', 0, -2, 0, [Barrier(-1, 0)], True),
+    (0, 0, 'S', 0, -3, 0, [Barrier(0, -1), Barrier(0, -2)], False),
+    (0, 0, 'W', -2, 0, 0, [Barrier(-1, 0)], False),
+    (0, 0, 'W', -2, 0, 0, [Barrier(-3, 0)], True),
+    (0, 0, 'W', -2, 0, 0, [Barrier(1, 0)], True),
+    (0, 0, 'W', -2, 0, 0, [Barrier(0, -1)], True),
+    (0, 0, 'W', -3, 0, 0, [Barrier(-1, 0), Barrier(-2, 0)], False)
+
 ])
 def test_is_point_in_laser_beam(lx, ly, direction, px, py, tick, barriers, expected):
     actual = Laser(lx, ly, direction).is_point_inside_beam(Point(px, py), tick, barriers)
