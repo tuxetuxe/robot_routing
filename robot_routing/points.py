@@ -4,7 +4,10 @@ class BoundedBox:
         self.top_right = top_right
 
     def is_point_inside(self, point):
-        return point.x >= self.bottom_left.x and point.x <= self.top_right.x and point.y >= self.bottom_left.y and point.y <= self.top_right.y
+        return point.x >= self.bottom_left.x and \
+               point.x <= self.top_right.x and \
+               point.y >= self.bottom_left.y and \
+               point.y <= self.top_right.y
 
     def __str__(self):
         return "(x > %d and x < %d), (y > %d and y < %d)" % (self.bottom_left.x,
@@ -24,7 +27,7 @@ class Point:
                ]
 
     def to_tuple(self):
-        return (self.x, self.y)
+        return self.x, self.y
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y

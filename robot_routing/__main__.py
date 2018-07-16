@@ -12,7 +12,7 @@ if __name__ == '__main__':
     world = file_utils.read_world_from_problem_file(args.problem_file)
 
     print("\nWorld configuration at start:")
-    for (k,v) in world.nodes.iteritems():
+    for (k,v) in world.nodes.items():
         print(str(v))
     print("\nWorld boundaries: %s" % world.boundaries)
 

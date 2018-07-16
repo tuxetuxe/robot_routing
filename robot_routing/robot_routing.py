@@ -1,9 +1,7 @@
-import argparse
 import math_utils
-import file_utils
-from world import World
-import world
 import heapq
+import math
+
 
 class NodeQueue:
     def __init__(self):
@@ -18,8 +16,8 @@ class NodeQueue:
     def pop(self):
         return heapq.heappop(self.elements)[1]
 
-class RobotRouting:
 
+class RobotRouting:
     def __init__(self, world):
         self.world = world
 
@@ -40,7 +38,7 @@ class RobotRouting:
 
             for neighbor_node in self.world.get_neighbors(current_node, current_tick):
                 cost = current_node.cost + self.world.movement_cost(neighbor_node, current_tick)
-                need_to_visit_neighbor = cost != math_utils.INFINITY and (neighbor_node.cost is None or cost < neighbor_node.cost)
+                need_to_visit_neighbor = cost != math.inf and (neighbor_node.cost is None or cost < neighbor_node.cost)
 
                 # print("Neighbor Node: %s" % neighbor_node)
                 # print("\t cost: %s; will visit: %r" % ( str(cost), need_to_visit_neighbor) )

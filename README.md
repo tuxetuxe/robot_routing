@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Python 2.7.15+
+- Python 3.7+
 
 
 ## Setup

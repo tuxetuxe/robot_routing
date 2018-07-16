@@ -1,5 +1,6 @@
 from nodes import *
 from points import Point, BoundedBox
+import math
 
 
 class World:
@@ -19,11 +20,11 @@ class World:
         self.add_nodes_to_dict(self.lasers)
         self.add_nodes_to_dict(wormholes)
 
-        min_x = min([p.x for p in self.nodes.iterkeys()])
-        min_y = min([p.y for p in self.nodes.iterkeys()])
+        min_x = min([p.x for p in self.nodes.keys()])
+        min_y = min([p.y for p in self.nodes.keys()])
 
-        max_x = max([p.x for p in self.nodes.iterkeys()])
-        max_y = max([p.y for p in self.nodes.iterkeys()])
+        max_x = max([p.x for p in self.nodes.keys()])
+        max_y = max([p.y for p in self.nodes.keys()])
 
         #
         # Adding an "border" to the possible search space so the robot can potentially go around any node in the edge
@@ -63,6 +64,6 @@ class World:
     def movement_cost(self, node, tick):
         is_in_laser_beam = any([laser.is_point_inside_beam(node.point, tick, self.barriers) for laser in self.lasers])
         if is_in_laser_beam:
-            return INFINITY
+            return math.inf
         else:
             return node.movement_cost()

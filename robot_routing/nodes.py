@@ -1,5 +1,5 @@
 from points import *
-from math_utils import NEGATIVE_INFINITY, INFINITY
+import math
 
 CLOCKWISE_DIRECTIONS_MAP = { 'N': 'E',
                              'E': 'S',
@@ -22,12 +22,15 @@ class Node:
     def __eq__(self, other):
         return self.point == other.point
 
+    def __lt__(self, other):
+        return self.cost < other.cost
+
     def __str__(self):
         return "point: %s; visited on: %s; cost: %s; from: %s" % (str(self.point),
-                                                                   str(self.visited_on_tick),
-                                                                   str(self.cost),
-                                                                   'None' if self.previous_node is None else str(self.previous_node.point)
-                                                                  )
+                                                                  str(self.visited_on_tick),
+                                                                  str(self.cost),
+                                                                  'None' if self.previous_node is None else str(self.previous_node.point)
+                                                                 )
 
 
 class Origin(Node):
@@ -56,10 +59,10 @@ class EmptyNode(Node):
 
 class Barrier(Node):
     def __init__(self, x, y):
-        Node.__init__(self, x, y, NEGATIVE_INFINITY)
+        Node.__init__(self, x, y, math.inf)
 
     def movement_cost(self):
-        return INFINITY
+        return math.inf
 
     def __str__(self):
         return "[BARRIER    ] %s" % Node.__str__(self)
@@ -67,11 +70,11 @@ class Barrier(Node):
 
 class Laser(Node):
     def __init__(self, x, y, initial_direction):
-        Node.__init__(self, x, y, NEGATIVE_INFINITY)
+        Node.__init__(self, x, y, -math.inf)
         self.initial_direction = initial_direction
 
     def movement_cost(self):
-        return INFINITY
+        return math.inf
 
     def get_direction_on_tick(self, tick):
         direction = self.initial_direction
