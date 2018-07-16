@@ -14,12 +14,27 @@ pip install -r requirements.txt
 
 ## Build
 
-Bulld docker image
+Run the test suit
+```bash
+    pytest
+```
+
+Build docker image
 ```bash
 sudo docker build -t robot_routing .
 ```
 
 ## Execute
+
+Execute the script directly in your machine
+
+> Don't forget to install the requirements
+
+```bash
+    python robot_routing <problem file> <solution file>
+```
+
+Use the docker image to solve a problem
 ```bash
 docker run \
     -v $(pwd)/problems:/problems \
@@ -28,6 +43,10 @@ docker run \
     /problems/<solution file>
 ```
 
+Solve all problems in the problems folder (except sample):
+```bash
+    ./solve_all_problems.sh
+```
 ## Test
 
 ```bash
