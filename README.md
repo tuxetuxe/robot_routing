@@ -12,18 +12,23 @@ Install requirements
 pip install -r requirements.txt
 ```
 
+## Build
+
+Bulld docker image
+```bash
+sudo docker build -t robot_routing .
+```
+
+## Execute
+```bash
+docker run \
+    -v $(pwd)/problems:/problems \
+    robot_routing \
+    /problems/<problem file> \
+    /problems/<solution file>
+```
+
 ## Test
 
-```
+```bash
 py.test -v -s --cov-report term-missing --cov=robot_routing -r w tests
-```
-
-## Links
-
-https://travis-ci.org/tuxetuxe/robot_routing.svg?branch=master
-
-https://travis-ci.org/tuxetuxe/robot_routing
-
-https://coveralls.io/github/tuxetuxe/robot_routing?branch=master
-
-https://www.codacy.com
