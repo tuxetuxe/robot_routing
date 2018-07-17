@@ -3,9 +3,20 @@
 ## Requirements
 
 - Python 3.7+
+- VirtualEnv
 
 
 ## Setup
+
+Create virtual environment
+```bash
+virtualenv -p python3.6 venv
+```
+
+Activate virtual environment
+```bash
+source ./venv/bin/activate
+```
 
 Install requirements
 ```bash
@@ -16,7 +27,7 @@ pip install -r requirements.txt
 
 Run the test suit
 ```bash
-    pytest
+    pytest -v -s --cov-report term-missing --cov=robot_routing -r w tests
 ```
 
 Build docker image
@@ -28,7 +39,7 @@ sudo docker build -t robot_routing .
 
 Execute the script directly in your machine
 
-> Don't forget to install the requirements
+> Don't forget to follow the "Setup" steps!
 
 ```bash
     python robot_routing <problem file> <solution file>
@@ -47,7 +58,3 @@ Solve all problems in the problems folder (except sample):
 ```bash
     ./solve_all_problems.sh
 ```
-## Test
-
-```bash
-py.test -v -s --cov-report term-missing --cov=robot_routing -r w tests
