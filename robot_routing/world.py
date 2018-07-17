@@ -4,14 +4,14 @@ import math
 
 
 class World:
-    def __init__(self, origin, destination, barriers = [], lasers = [], wormhole_pairs = []):
-        self.origin = Origin(origin[0],origin[1])
-        self.destination = Destination(destination[0],destination[1])
+    def __init__(self, origin, destination, barriers=[], lasers=[], wormhole_pairs=[]):
+        self.origin = Origin(origin[0], origin[1])
+        self.destination = Destination(destination[0], destination[1])
 
         self.barriers = [Barrier(n[0], n[1]) for n in barriers]
         self.lasers = [Laser(n[0], n[1], n[2]) for n in lasers]
         wormholes = [Wormhole(o[0], o[1], d[0], d[1]) for [o, d] in wormhole_pairs] + \
-                         [Wormhole(d[0], d[1], o[0], o[1]) for [o, d] in wormhole_pairs]
+            [Wormhole(d[0], d[1], o[0], o[1]) for [o, d] in wormhole_pairs]
 
         self.nodes = dict()
         self.nodes[self.origin.point] = self.origin
@@ -39,7 +39,7 @@ class World:
         self.nodes.update(dict((n.point, n) for n in nodes_list))
 
     def get_node_at(self, point):
-        if not point in self.nodes:
+        if point not in self.nodes:
             self.nodes[point] = EmptyNode(point.x, point.y)
         return self.nodes.get(point)
 
