@@ -3,16 +3,16 @@ from ..robot_routing.nodes import *
 
 
 @pytest.mark.parametrize("node, expected", [
-    (Node(0, 0), 1),
-    (Origin(0, 0), 1),
-    (Destination(0, 0), 1),
-    (EmptyNode(0, 0), 1),
-    (Barrier(0, 0), math.inf),
-    (Laser(0, 0, 'N'), math.inf),
-    (Wormhole(0, 0, 1, 1), 1)
+    (Node(0, 0), True),
+    (Origin(0, 0), True),
+    (Destination(0, 0), True),
+    (EmptyNode(0, 0), True),
+    (Barrier(0, 0), False),
+    (Laser(0, 0, 'N'), False),
+    (Wormhole(0, 0, 1, 1), True)
 ])
-def test_movement_cost(node,expected):
-    actual = node.movement_cost()
+def test_can_move_into(node,expected):
+    actual = node.can_move_into()
     assert expected == actual
 
 

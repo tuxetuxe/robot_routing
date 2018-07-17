@@ -7,6 +7,9 @@ class BoundedBox:
         return self.bottom_left.x <= point.x <= self.top_right.x and \
                self.bottom_left.y <= point.y <= self.top_right.y
 
+    def __repr__(self):
+        return self.__str__();
+
     def __str__(self):
         return "(x > %d and x < %d), (y > %d and y < %d)" % (self.bottom_left.x,
                                                              self.top_right.x,

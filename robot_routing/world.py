@@ -11,7 +11,7 @@ class World:
         self.barriers = [Barrier(n[0], n[1]) for n in barriers]
         self.lasers = [Laser(n[0], n[1], n[2]) for n in lasers]
         wormholes = [Wormhole(o[0], o[1], d[0], d[1]) for [o, d] in wormhole_pairs] + \
-                    [Wormhole(d[0], d[1], o[0], o[1]) for [o, d] in wormhole_pairs]
+                         [Wormhole(d[0], d[1], o[0], o[1]) for [o, d] in wormhole_pairs]
 
         self.nodes = dict()
         self.nodes[self.origin.point] = self.origin
@@ -63,7 +63,8 @@ class World:
 
     def movement_cost(self, node, tick):
         is_in_laser_beam = any([laser.is_point_inside_beam(node.point, tick, self.barriers) for laser in self.lasers])
-        if is_in_laser_beam:
+        if is_in_laser_beam or not node.can_move_into():
             return math.inf
         else:
-            return node.movement_cost()
+            # moving into a node has a cost of 1 unit of work
+            return 1

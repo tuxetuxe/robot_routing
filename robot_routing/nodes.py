@@ -17,14 +17,17 @@ class Node:
         self.previous_node = previous_node
         self.visited_on_tick = visited_on_tick
 
-    def movement_cost(self):
-        return 1
+    def can_move_into(self):
+        return True
 
     def __eq__(self, other):
         return self.point == other.point
 
     def __lt__(self, other):
         return self.cost < other.cost
+
+    def __repr__(self):
+        return self.__str__()
 
     def __str__(self):
         return "point: %s; visited on: %s; cost: %s; from: %s" % (str(self.point),
@@ -35,24 +38,33 @@ class Node:
 
 
 class Origin(Node):
-    def __init__(self, x, y,):
+    def __init__(self, x, y):
         Node.__init__(self, x, y, 0, None, 0)
+
+    def __repr__(self):
+        return self.__str__()
 
     def __str__(self):
         return "[ORIGIN     ] %s" % Node.__str__(self)
 
 
 class Destination(Node):
-    def __init__(self, x, y,):
+    def __init__(self, x, y):
         Node.__init__(self, x, y, None, None)
+
+    def __repr__(self):
+        return self.__str__()
 
     def __str__(self):
         return "[DESTINATION] %s" % Node.__str__(self)
 
 
 class EmptyNode(Node):
-    def __init__(self, x, y, cost = None, previous_node = None):
+    def __init__(self, x, y, cost=None, previous_node=None):
         Node.__init__(self, x, y, cost, previous_node)
+
+    def __repr__(self):
+        return self.__str__()
 
     def __str__(self):
         return "[           ] %s" % Node.__str__(self)
@@ -62,8 +74,11 @@ class Barrier(Node):
     def __init__(self, x, y):
         Node.__init__(self, x, y, math.inf)
 
-    def movement_cost(self):
-        return math.inf
+    def can_move_into(self):
+        return False
+
+    def __repr__(self):
+        return self.__str__()
 
     def __str__(self):
         return "[BARRIER    ] %s" % Node.__str__(self)
@@ -74,8 +89,8 @@ class Laser(Node):
         Node.__init__(self, x, y, -math.inf)
         self.initial_direction = initial_direction
 
-    def movement_cost(self):
-        return math.inf
+    def can_move_into(self):
+        return False
 
     def get_direction_on_tick(self, tick):
         direction = self.initial_direction
@@ -101,6 +116,9 @@ class Laser(Node):
             is_blocked_by_barrier = any([self.point.y == b.point.y and self.point.x > b.point.x > point.x for b in barriers])
             return point.y == self.point.y and point.x <= self.point.x and not is_blocked_by_barrier
 
+    def __repr__(self):
+        return self.__str__()
+
     def __str__(self):
         return "[LASER      ] %s; initial_direction: %s" % (Node.__str__(self), self.initial_direction)
 
@@ -113,6 +131,9 @@ class Wormhole(Node):
     @staticmethod
     def is_active(tick):
         return tick % WORMHOLE_FREQUENCY == 0
+
+    def __repr__(self):
+        return self.__str__()
 
     def __str__(self):
         return "[WORMHOLE   ] %s; destination: %s" % (Node.__str__(self), str(self.destination_point))

@@ -35,6 +35,9 @@ class RobotRouting:
                 break
 
             for neighbor_node in self.world.get_neighbors(current_node, current_tick):
+                if not neighbor_node.can_move_into():
+                    continue
+
                 cost = current_node.cost + self.world.movement_cost(neighbor_node, current_tick)
                 need_to_visit_neighbor = cost != math.inf and (neighbor_node.cost is None or cost < neighbor_node.cost)
 

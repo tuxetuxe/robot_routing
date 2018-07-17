@@ -19,9 +19,9 @@ if __name__ == '__main__':
     print("\nCalculating shortest path between %s and %s" % (world.origin.point, world.destination.point))
     solution_path = RobotRouting(world).get_shortest_path()
 
-    #print("World configuration at end:")
-    #for (k,v) in world.nodes.iteritems():
-    #    print(str(v))
+    print("World configuration at end:")
+    for (k,v) in world.nodes.items():
+        print(str(v))
 
     print("\nSolution path:")
     print(solution_path)
