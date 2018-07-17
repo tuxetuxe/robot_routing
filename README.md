@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Python 3.7+
+- Python 3+
 - VirtualEnv
 
 
@@ -48,6 +48,7 @@ Execute the script directly in your machine
 Use the docker image to solve a problem
 ```bash
 docker run \
+    --rm \
     -v $(pwd)/problems:/problems \
     robot_routing \
     /problems/<problem file> \
