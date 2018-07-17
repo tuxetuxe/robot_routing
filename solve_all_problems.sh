@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+sudo docker rmi robot_routing
+
 sudo docker build -t robot_routing .
 
 for folder in problems/* ; do
@@ -10,6 +12,6 @@ for folder in problems/* ; do
     echo "==============================================================================="
     echo "Solving problem in $folder"
     echo "==============================================================================="
-    sudo docker run -v $(pwd)/problems:/problems robot_routing $folder/problem.txt $folder/solution.txt
+    sudo docker run --rm -v $(pwd)/problems:/problems robot_routing $folder/problem.txt $folder/solution.txt
   fi
 done
