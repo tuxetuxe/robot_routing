@@ -17,7 +17,8 @@ class Node:
         self.previous_node = previous_node
         self.visited_on_tick = visited_on_tick
 
-    def can_move_into(self):
+    @staticmethod
+    def can_move_into():
         return True
 
     def __eq__(self, other):
@@ -74,7 +75,8 @@ class Barrier(Node):
     def __init__(self, x, y):
         Node.__init__(self, x, y, math.inf)
 
-    def can_move_into(self):
+    @staticmethod
+    def can_move_into():
         return False
 
     def __repr__(self):
@@ -89,14 +91,15 @@ class Laser(Node):
         Node.__init__(self, x, y, -math.inf)
         self.initial_direction = initial_direction
 
-    def can_move_into(self):
+    @staticmethod
+    def can_move_into():
         return False
 
     def get_direction_on_tick(self, tick):
         direction = self.initial_direction
         rotations = tick % 4
 
-        for i in range(rotations):
+        for _ in range(rotations):
             direction = CLOCKWISE_DIRECTIONS_MAP[direction]
 
         return direction
@@ -115,6 +118,8 @@ class Laser(Node):
         if direction == 'W':
             is_blocked_by_barrier = any([self.point.y == b.point.y and self.point.x > b.point.x > point.x for b in barriers])
             return point.y == self.point.y and point.x <= self.point.x and not is_blocked_by_barrier
+
+        return False
 
     def __repr__(self):
         return self.__str__()

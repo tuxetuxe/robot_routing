@@ -26,5 +26,5 @@ def read_world_from_problem_file(problem_file):
 
 
 def write_solution_file(solution_file, solution_path):
-    with open(solution_file, 'w') as f:
-        f.write("%s" % solution_path)
+    with open(solution_file, 'w') as file:
+        file.write("%s" % solution_path)
